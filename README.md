@@ -1079,4 +1079,199 @@ Used in:
 
 👉 CMOS inverter is robust and widely used as basic digital building block.
 
+
+
+# 📘 NgspiceSky130-Day4-CMOS Noise Margin robustness evaluation
+
+## Static behaviour evaluation - CMOS inverter robustness - Noise Margin
+
+---
+
+### L1 Introduction to Noise Margin
+
+**Noise Margin** is the ability of a CMOS inverter to tolerate unwanted noise at its input without producing an incorrect output.
+
+👉 Simple meaning:
+Even if input is slightly disturbed, output should remain correct.
+
+---
+
+### Ideal Inverter
+
+<img src="v1.png"/>
+
+* Instant switching
+* Infinite slope
+* No delay
+
+👉 Ideal case (not practical)
+
+---
+
+### Practical Inverter
+
+<img src="v2.png"/>
+
+* Due to resistance and capacitance
+* Slope becomes finite
+* Transition becomes gradual
+
+👉 This makes the circuit sensitive to noise.
+
+---
+
+### Logic Regions
+
+<img src="v3.png"/>
+
+* 0 → VIL → Output = VOH (HIGH)
+* VIH → VDD → Output = VOL (LOW)
+
+👉 Between VIL and VIH → **undefined region (danger zone)**
+This region is unstable because both NMOS and PMOS conduct, leading to uncertain output.
+
+---
+
+### L2 Noise Margin Voltage Parameters
+
+<img src="v4.png"/>
+
+Important parameters:
+
+* **VOH** → Output High
+* **VOL** → Output Low
+* **VIL** → Max input LOW
+* **VIH** → Min input HIGH
+
+---
+
+### Conditions
+
+* VOH < VDD
+* VOL > 0
+* VOL < VIL
+* VIH < VOH
+
+👉 Ensures proper cascading of logic gates
+
+---
+
+### Important Concept
+
+* At transition → slope ≈ **−1**
+
+👉 This point represents maximum gain of the inverter and is used to define VIL and VIH.
+
+---
+
+### L3 Noise Margin Equation and Summary
+
+<img src="v5.png"/>
+
+* **NMH = VOH − VIH**
+* **NML = VIL − VOL**
+
+---
+
+<img src="v6.png"/>
+
+### Interpretation
+
+* Inside margin → SAFE
+* Outside → UNDEFINED
+
+👉 Larger margin = better reliability
+
+---
+
+### L4 Noise Margin variation with respect to PMOS width
+
+To find VIL & VIH:
+👉 Find points where slope = −1
+
+<img src="v7.png"/>
+
+---
+
+### PMOS Width Variation
+
+<img src="v8.png"/>
+<img src="v9.png"/>
+<img src="v10.png"/>
+
+---
+
+### Observations
+
+* Increasing PMOS width:
+
+  * Improves symmetry
+  * Changes switching point
+  * Initially increases noise margin
+
+---
+
+<img src="v11.png"/>
+
+👉 After a certain point:
+
+* Noise margin becomes constant
+
+👉 CMOS inverter is **robust**
+
+---
+
+### Digital vs Analog Region
+
+<img src="v12.png"/>
+<img src="v13.png"/>
+
+* Flat region → Digital operation
+* Sloped region → Analog behavior
+
+---
+
+### L5 Sky130 Noise Margin Lab
+
+### Simulation Setup
+
+<img src="v14.png"/>
+<img src="v15.png"/>
+
+* Wp/Wn = **2.77**
+* Vin sweep: **0 → 1.8V**
+* Step = **0.01V**
+
+---
+
+### Simulation Output
+
+<img src="v16.png"/>
+<img src="v17.png"/>
+<img src="v18.png"/>
+
+---
+
+### Extracted Values
+
+* VIL = 0.7733 V
+* VIH = 0.98778 V
+* VOL = 0.09523 V
+* VOH = 1.70952 V
+
+---
+
+### Noise Margins
+
+* **NMH = 1.70952 − 0.98778 = 0.72 V**
+* **NML = 0.7733 − 0.09523 = 0.678 V**
+
+---
+
+## Key Conclusions
+
+* Larger noise margin → stronger inverter
+* CMOS inverter is robust even with variations
+* Ensures reliable digital operation
+
 ---
