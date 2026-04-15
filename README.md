@@ -1080,7 +1080,6 @@ Used in:
 👉 CMOS inverter is robust and widely used as basic digital building block.
 
 
-
 # 📘 NgspiceSky130-Day4-CMOS Noise Margin robustness evaluation
 
 ## Static behaviour evaluation - CMOS inverter robustness - Noise Margin
@@ -1098,7 +1097,7 @@ Even if input is slightly disturbed, output should remain correct.
 
 ### Ideal Inverter
 
-<img src="v1.png"/>
+<img src="images/v1.png"/>
 
 * Instant switching
 * Infinite slope
@@ -1110,7 +1109,7 @@ Even if input is slightly disturbed, output should remain correct.
 
 ### Practical Inverter
 
-<img src="v2.png"/>
+<img src="images/v2.png"/>
 
 * Due to resistance and capacitance
 * Slope becomes finite
@@ -1122,7 +1121,7 @@ Even if input is slightly disturbed, output should remain correct.
 
 ### Logic Regions
 
-<img src="v3.png"/>
+<img src="images/v3.png"/>
 
 * 0 → VIL → Output = VOH (HIGH)
 * VIH → VDD → Output = VOL (LOW)
@@ -1134,7 +1133,7 @@ This region is unstable because both NMOS and PMOS conduct, leading to uncertain
 
 ### L2 Noise Margin Voltage Parameters
 
-<img src="v4.png"/>
+<img src="images/v4.png"/>
 
 Important parameters:
 
@@ -1166,14 +1165,14 @@ Important parameters:
 
 ### L3 Noise Margin Equation and Summary
 
-<img src="v5.png"/>
+<img src="images/v5.png"/>
 
 * **NMH = VOH − VIH**
 * **NML = VIL − VOL**
 
 ---
 
-<img src="v6.png"/>
+<img src="images/v6.png"/>
 
 ### Interpretation
 
@@ -1189,29 +1188,28 @@ Important parameters:
 To find VIL & VIH:
 👉 Find points where slope = −1
 
-<img src="v7.png"/>
+<img src="images/v7.png"/>
 
 ---
 
 ### PMOS Width Variation
 
-<img src="v8.png"/>
-<img src="v9.png"/>
-<img src="v10.png"/>
+<img src="images/v8.png"/>
+<img src="images/v9.png"/>
+<img src="images/v10.png"/>
 
 ---
 
 ### Observations
 
 * Increasing PMOS width:
-
   * Improves symmetry
   * Changes switching point
   * Initially increases noise margin
 
 ---
 
-<img src="v11.png"/>
+<img src="images/v11.png"/>
 
 👉 After a certain point:
 
@@ -1223,8 +1221,8 @@ To find VIL & VIH:
 
 ### Digital vs Analog Region
 
-<img src="v12.png"/>
-<img src="v13.png"/>
+<img src="images/v12.png"/>
+<img src="images/v13.png"/>
 
 * Flat region → Digital operation
 * Sloped region → Analog behavior
@@ -1235,8 +1233,8 @@ To find VIL & VIH:
 
 ### Simulation Setup
 
-<img src="v14.png"/>
-<img src="v15.png"/>
+<img src="images/v14.png"/>
+<img src="images/v15.png"/>
 
 * Wp/Wn = **2.77**
 * Vin sweep: **0 → 1.8V**
@@ -1246,9 +1244,9 @@ To find VIL & VIH:
 
 ### Simulation Output
 
-<img src="v16.png"/>
-<img src="v17.png"/>
-<img src="v18.png"/>
+<img src="images/v16.png"/>
+<img src="images/v17.png"/>
+<img src="images/v18.png"/>
 
 ---
 
@@ -1275,3 +1273,7 @@ To find VIL & VIH:
 * Ensures reliable digital operation
 
 ---
+
+## 🧠 One-line Summary
+
+👉 **Day 4 = Noise immunity of CMOS inverter**
