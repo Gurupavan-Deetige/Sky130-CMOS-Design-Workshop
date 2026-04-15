@@ -907,7 +907,7 @@ SPICE syntax for MOSFET:
 
 <img src="images/t6.png" />
 
-👉 This completes CMOS inverter netlist setup.
+This completes CMOS inverter netlist setup.
 
 ---
 
@@ -921,7 +921,7 @@ We sweep **Vin from 0 → Vdd (2.5V)** with step size 0.05.
 
 <img src="images/t10.png" />
 
-👉 This generates the **Voltage Transfer Characteristic (VTC)** curve.
+ This generates the **Voltage Transfer Characteristic (VTC)** curve.
 
 <img src="images/t11.png" />
 
@@ -929,7 +929,7 @@ When PMOS = NMOS strength → switching point near center.
 
 <img src="images/t12.png" />
 
-👉 Increasing PMOS width:
+ Increasing PMOS width:
 
 * Makes PMOS stronger
 * Shifts VTC left
@@ -957,7 +957,7 @@ plot out vs in
 <img src="images/t17.png" />
 <img src="images/t18.png" />
 
-👉 **Switching Threshold (Vm)** = point where Vin = Vout
+ **Switching Threshold (Vm)** = point where Vin = Vout
 
 **Vm ≈ 0.876V**
 
@@ -974,15 +974,15 @@ We measure delay at **50% of Vdd (≈0.9V)** because it represents switching mid
 
 <img src="images/t21.png" />
 
-👉 **Rise Delay** (output going LOW → HIGH):
+ **Rise Delay** (output going LOW → HIGH):
 = 2.482ns − 2.15ns = **0.333ns**
 
 <img src="images/t22.png" />
 
-👉 **Fall Delay** (output going HIGH → LOW):
+**Fall Delay** (output going HIGH → LOW):
 = 4.334ns − 4.050ns = **0.285ns**
 
-👉 Delay depends on:
+Delay depends on:
 
 * Load capacitance
 * Transistor strength (W/L)
@@ -1001,7 +1001,7 @@ We draw a **45° line (Vin = Vout)** to find switching point.
 
 <img src="images/t25.png" />
 
-👉 At Vm:
+` At Vm:
 
 * NMOS and PMOS both ON
 * Both in saturation
@@ -1017,7 +1017,7 @@ We draw a **45° line (Vin = Vout)** to find switching point.
 <img src="images/t27.png" />
 <img src="images/t28.png" />
 
-👉 Vm depends on:
+ Vm depends on:
 
 * Mobility (μn, μp)
 * Threshold voltages
@@ -1030,7 +1030,7 @@ We draw a **45° line (Vin = Vout)** to find switching point.
 <img src="images/t29.png" />
 <img src="images/t30.png" />
 
-👉 Design goal:
+ Design goal:
 
 * Choose W/L such that **Vm ≈ Vdd/2**
 * This gives **symmetrical inverter**
@@ -1056,7 +1056,7 @@ Dynamic → delay behavior
 <img src="images/t35.png" />
 <img src="images/t36.png" />
 
-👉 Increasing PMOS width:
+ Increasing PMOS width:
 
 * Increases charging current
 * Reduces rise delay
@@ -1068,7 +1068,7 @@ Dynamic → delay behavior
 
 <img src="images/t37.png" />
 
-👉 When rise delay ≈ fall delay → **symmetric inverter**
+When rise delay ≈ fall delay → **symmetric inverter**
 
 Used in:
 
@@ -1077,7 +1077,7 @@ Used in:
 
 <img src="images/t38.png" />
 
-👉 CMOS inverter is robust and widely used as basic digital building block.
+ CMOS inverter is robust and widely used as basic digital building block.
 
 
 # 📘 NgspiceSky130-Day4-CMOS Noise Margin robustness evaluation
@@ -1090,7 +1090,7 @@ Used in:
 
 **Noise Margin** is the ability of a CMOS inverter to tolerate unwanted noise at its input without producing an incorrect output.
 
-👉 Simple meaning:
+Simple meaning:
 Even if input is slightly disturbed, output should remain correct.
 
 ---
@@ -1103,7 +1103,7 @@ Even if input is slightly disturbed, output should remain correct.
 * Infinite slope
 * No delay
 
-👉 Ideal case (not practical)
+ Ideal case (not practical)
 
 ---
 
@@ -1115,7 +1115,7 @@ Even if input is slightly disturbed, output should remain correct.
 * Slope becomes finite
 * Transition becomes gradual
 
-👉 This makes the circuit sensitive to noise.
+This makes the circuit sensitive to noise.
 
 ---
 
@@ -1126,7 +1126,7 @@ Even if input is slightly disturbed, output should remain correct.
 * 0 → VIL → Output = VOH (HIGH)
 * VIH → VDD → Output = VOL (LOW)
 
-👉 Between VIL and VIH → **undefined region (danger zone)**
+ Between VIL and VIH → **undefined region (danger zone)**
 This region is unstable because both NMOS and PMOS conduct, leading to uncertain output.
 
 ---
@@ -1151,15 +1151,13 @@ Important parameters:
 * VOL < VIL
 * VIH < VOH
 
-👉 Ensures proper cascading of logic gates
-
 ---
 
 ### Important Concept
 
 * At transition → slope ≈ **−1**
 
-👉 This point represents maximum gain of the inverter and is used to define VIL and VIH.
+
 
 ---
 
@@ -1179,14 +1177,14 @@ Important parameters:
 * Inside margin → SAFE
 * Outside → UNDEFINED
 
-👉 Larger margin = better reliability
+
 
 ---
 
 ### L4 Noise Margin variation with respect to PMOS width
 
 To find VIL & VIH:
-👉 Find points where slope = −1
+ Find points where slope = −1
 
 <img src="images/v7.png"/>
 
@@ -1211,11 +1209,11 @@ To find VIL & VIH:
 
 <img src="images/v11.png"/>
 
-👉 After a certain point:
+ After a certain point:
 
 * Noise margin becomes constant
 
-👉 CMOS inverter is **robust**
+ CMOS inverter is **robust**
 
 ---
 
@@ -1272,8 +1270,266 @@ To find VIL & VIH:
 * CMOS inverter is robust even with variations
 * Ensures reliable digital operation
 
+---# 📘 NgspiceSky130-Day5-CMOS power supply and device variation robustness evaluation
+
+## Static behaviour evaluation - CMOS inverter robustness - Power supply variation
+
 ---
 
-## 🧠 One-line Summary
+### L1 Smart SPICE simulations for power supply variations
 
-👉 **Day 4 = Noise immunity of CMOS inverter**
+In CMOS design, **Power Supply Scaling** is an important factor.
+
+When technology scales down:
+* Supply voltage (VDD) is reduced
+* Power consumption reduces
+* But circuit performance may change
+
+Goal:
+Check whether CMOS inverter characteristics remain stable under different VDD values.
+
+---
+
+### Simulation Setup
+
+<img src="images/o1.png"/>
+<img src="images/o2.png"/>
+<img src="images/o3.png"/>
+<img src="images/o4.png"/>
+
+We simulate VTC for different supply voltages:
+
+* VDD = 2.5V  
+* VDD = 2.0V  
+* VDD = 1.5V  
+* VDD = 1.0V  
+* VDD = 0.5V  
+
+---
+
+### VTC Characteristics
+
+<img src="images/o5.png"/>
+
+Observation:
+
+* As VDD decreases:
+  * Output swing reduces
+  * Transition becomes slower
+  * Gain reduces
+
+---
+
+### L2 Advantages and Disadvantages of Low Supply Voltage
+
+---
+
+### Gain Analysis
+
+Gain = dVout / dVin
+
+<img src="images/o6.png"/>
+<img src="images/o7.png"/>
+
+Observation:
+
+* Higher VDD → higher gain  
+* Lower VDD → reduced gain  
+
+---
+
+### Energy Consumption
+
+<img src="images/o8.png"/>
+<img src="images/o9.png"/>
+
+Observation:
+
+* Power consumption decreases with VDD  
+* Energy efficiency improves  
+
+---
+
+### Advantages of Low VDD
+
+<img src="images/o10.png"/>
+
+* Low power consumption  
+* Reduced heat generation  
+* Better battery life  
+
+---
+
+### Disadvantages of Low VDD
+
+* Slower charging/discharging of load capacitor  
+* Increase in rise delay and fall delay  
+* Reduced speed (performance degradation)  
+
+---
+
+## Static behaviour evaluation - CMOS inverter robustness - Device variation
+
+---
+
+### L1 Sources of variation - Etching process
+
+<img src="images/o11.png"/>
+
+During fabrication:
+
+* Gate length (L) may vary  
+* Gate width (W) may vary  
+
+This variation occurs due to etching inaccuracies.
+
+---
+
+### Inverter Chain Variation
+
+<img src="images/o12.png"/>
+<img src="images/o13.png"/>
+
+* Variation is not uniform  
+* Edge devices show more variation than center  
+
+---
+
+<img src="images/o14.png"/>
+
+Effect:
+
+* Change in W/L ratio  
+* Change in drain current (Id)  
+
+---
+
+<img src="images/o15.png"/>
+
+Result:
+
+* VTC curve shifts  
+* Switching threshold changes  
+
+---
+
+### L2 Sources of variation - Oxide thickness
+
+<img src="images/o16.png"/>
+<img src="images/o17.png"/>
+
+Gate oxide thickness (tox) may vary during fabrication.
+
+---
+
+<img src="images/o18.png"/>
+
+Ideal vs Actual thickness difference exists.
+
+---
+
+### Important Relation
+
+Cox = εox / tox
+
+<img src="images/o19.png"/>
+
+Effect:
+
+* Change in Cox  
+* Change in current  
+* Change in inverter characteristics  
+
+---
+
+### L3 Smart SPICE simulation for device variations
+
+We simulate two extreme cases:
+
+1. Strong PMOS, Weak NMOS  
+2. Strong NMOS, Weak PMOS  
+
+---
+
+<img src="images/o20.png"/>
+<img src="images/o21.png"/>
+<img src="images/o22.png"/>
+<img src="images/o23.png"/>
+<img src="images/o24.png"/>
+
+---
+
+### Observations
+
+* Strong PMOS:
+  * Higher pull-up strength  
+  * Vm shifts to right  
+
+* Strong NMOS:
+  * Higher pull-down strength  
+  * Vm shifts to left  
+
+---
+
+### L4 Conclusion
+
+<img src="images/o25.png"/>
+
+* Switching threshold shifts depending on strength  
+* CMOS inverter still maintains functionality  
+
+---
+
+<img src="images/o26.png"/>
+
+* Noise margins remain almost same  
+* Shows strong robustness  
+
+---
+
+### Key Understanding
+
+* CMOS inverter tolerates:
+  * Power supply variation  
+  * Device variation  
+
+This makes CMOS highly reliable.
+
+---
+
+### L5 Sky130 Device Variation Lab
+
+<img src="images/o27.png"/>
+<img src="images/o28.png"/>
+
+---
+
+Observation:
+
+* PMOS width > NMOS width  
+* Strong PMOS case  
+
+---
+
+<img src="images/o29.png"/>
+<img src="images/o30.png"/>
+
+---
+
+### Result
+
+* Vm shifts towards right  
+* Output still valid  
+
+---
+
+## Final Conclusion
+
+* CMOS inverter is robust to:
+  * Supply variation  
+  * Device variation  
+
+* Performance changes, but logic correctness is maintained  
+
+---
+
