@@ -870,3 +870,213 @@ Operating regions:
 - Vin = Vdd → Vout = 0 → NMOS Linear, PMOS OFF  
 
 ![Final VTC](images/d48.png)
+# NgspiceSky130-Day3-CMOS switching threshold and dynamic simulations
+
+## Voltage transfer characteristics-SPICE simulations
+
+### L1 SPICE deck creation for CMOS inverter
+
+We simulate the CMOS inverter using a **SPICE netlist**, which defines:
+
+* Device connections
+* Node names
+* Input/output sources
+* Technology models
+
+<img src="images/t1.png" />
+
+Next, we define **W/L ratios**. Equal sizing means balanced PMOS and NMOS strength.
+
+<img src="images/t2.png" />
+
+Vin is the input and Vout is the output node.
+
+<img src="images/t3.png" />
+
+Nodes are points where components connect. SPICE solves circuit equations based on these nodes.
+
+<img src="images/t4.png" />
+
+Naming nodes correctly ensures proper simulation.
+
+<img src="images/t5.png" />
+
+SPICE syntax for MOSFET:
+
+* **Drain Gate Source Bulk (DGSS)**
+
+<img src="images/t6.png" />
+
+👉 This completes CMOS inverter netlist setup.
+
+---
+
+### L2 SPICE simulation for CMOS inverter
+
+<img src="images/t7.png" />
+<img src="images/t8.png" />
+<img src="images/t9.png" />
+
+We sweep **Vin from 0 → Vdd (2.5V)** with step size 0.05.
+
+<img src="images/t10.png" />
+
+👉 This generates the **Voltage Transfer Characteristic (VTC)** curve.
+
+<img src="images/t11.png" />
+
+When PMOS = NMOS strength → switching point near center.
+
+<img src="images/t12.png" />
+
+👉 Increasing PMOS width:
+
+* Makes PMOS stronger
+* Shifts VTC left
+* Output stays high longer
+
+---
+
+### L3 Sky130 SPICE simulation for CMOS
+
+<img src="images/t13.png" />
+
+Here we use **Sky130 PDK models**, which include real device effects.
+
+<img src="images/t14.png" />
+<img src="images/t15.png" />
+<img src="images/t16.png" />
+
+Run simulation:
+
+```
+ngspice
+plot out vs in
+```
+
+<img src="images/t17.png" />
+<img src="images/t18.png" />
+
+👉 **Switching Threshold (Vm)** = point where Vin = Vout
+
+**Vm ≈ 0.876V**
+
+---
+
+### L4 Transient analysis (Dynamic behaviour)
+
+Transient analysis shows how output changes **with time**.
+
+<img src="images/t19.png" />
+<img src="images/t20.png" />
+
+We measure delay at **50% of Vdd (≈0.9V)** because it represents switching midpoint.
+
+<img src="images/t21.png" />
+
+👉 **Rise Delay** (output going LOW → HIGH):
+= 2.482ns − 2.15ns = **0.333ns**
+
+<img src="images/t22.png" />
+
+👉 **Fall Delay** (output going HIGH → LOW):
+= 4.334ns − 4.050ns = **0.285ns**
+
+👉 Delay depends on:
+
+* Load capacitance
+* Transistor strength (W/L)
+
+---
+
+## Static behaviour evaluation – Switching Threshold (Vm)
+
+### L1 Switching Threshold concept
+
+<img src="images/t23.png" />
+
+We draw a **45° line (Vin = Vout)** to find switching point.
+
+<img src="images/t24.png" />
+
+<img src="images/t25.png" />
+
+👉 At Vm:
+
+* NMOS and PMOS both ON
+* Both in saturation
+* Maximum current flows
+
+⚠ This region consumes power and is critical in design.
+
+---
+
+### L2 Analytical expression of Vm
+
+<img src="images/t26.png" />
+<img src="images/t27.png" />
+<img src="images/t28.png" />
+
+👉 Vm depends on:
+
+* Mobility (μn, μp)
+* Threshold voltages
+* (W/L)n and (W/L)p
+
+---
+
+### L3 Finding W/L from Vm
+
+<img src="images/t29.png" />
+<img src="images/t30.png" />
+
+👉 Design goal:
+
+* Choose W/L such that **Vm ≈ Vdd/2**
+* This gives **symmetrical inverter**
+
+---
+
+### L4 Static and Dynamic simulation
+
+<img src="images/t31.png" />
+
+Static → VTC curve
+Dynamic → delay behavior
+
+<img src="images/t32.png" />
+
+---
+
+### L5 Effect of PMOS width
+
+<img src="images/t33.png" />
+<img src="images/t34.png" />
+
+<img src="images/t35.png" />
+<img src="images/t36.png" />
+
+👉 Increasing PMOS width:
+
+* Increases charging current
+* Reduces rise delay
+* Shifts Vm to right
+
+---
+
+### L6 Applications
+
+<img src="images/t37.png" />
+
+👉 When rise delay ≈ fall delay → **symmetric inverter**
+
+Used in:
+
+* Clock buffers
+* Timing-critical paths
+
+<img src="images/t38.png" />
+
+👉 CMOS inverter is robust and widely used as basic digital building block.
+
+---
