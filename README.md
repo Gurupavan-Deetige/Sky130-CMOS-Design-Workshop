@@ -628,3 +628,245 @@ We observe:
 - Observed Id-Vds characteristics  
 
 This forms the foundation for CMOS inverter analysis in the next stages.
+# NgspiceSky130-Day2-Velocity Saturation and Basics of CMOS Inverter VTC
+
+## SPICE Simulation for Lower Nodes and Velocity Saturation Effect
+
+### L1 SPICE Simulation for Lower Nodes
+We have observed the curve for Id vs Vds for different values of Vgs.</br>
+
+![Id vs Vds](images/d1.png)
+
+In the above graph:
+- Left side of curve (Vds = Vgs − Vt) → Linear region  
+- Right side → Saturation region  
+- Bottom → Cut-off region  
+
+This behavior is for **long channel devices**.</br>
+
+Now, we take different values of W and L while keeping W/L constant. Ideally, Id should remain the same, but in practice, it does not.</br>
+
+Below is the SPICE deck where only W and L are changed.</br>
+
+![Spice Deck](images/d2.png)
+
+---
+
+### L2 Drain Current vs Gate Voltage for Long and Short Channel Device
+Let us compare the two simulations.</br>
+
+![Comparison](images/d3.png)
+
+**Observation 1:**  
+For long channel devices (Vds = 2.5V), Id shows **quadratic behavior** with Vgs.  
+For short channel devices, Id shows **linear behavior** due to velocity saturation.</br>
+
+![Graph1](images/d4.png)
+![Graph2](images/d5.png)
+
+Now we plot Id vs Vgs keeping Vds = 2.5V.</br>
+
+![Sweep Setup](images/d6.png)
+
+This syntax means the left-side parameter is swept for every value of the right-side parameter.</br>
+
+![Quadratic Plot](images/d7.png)
+
+For short channel device (L = 0.25µm):</br>
+
+![Short Channel](images/d8.png)
+
+---
+
+### L3 Velocity Saturation at Lower and Higher Electric Fields
+For short channel devices, Id vs Vgs becomes more **linear** due to velocity saturation.</br>
+
+![Linear Behavior](images/d9.png)
+
+So we have four regions:
+- Cut-off  
+- Linear  
+- Saturation  
+- Velocity Saturation  
+
+**Velocity Saturation:**  
+Velocity is related to electric field:
+
+v = μE  
+
+Initially, velocity increases linearly, but after a certain field it saturates due to scattering.</br>
+
+![Velocity Graph](images/d10.png)
+
+Velocity saturation occurs at higher Vgs.</br>
+
+![High Field](images/d11.png)
+
+---
+
+### L4 Velocity Saturation Drain Current Model
+
+![Equation](images/d12.png)
+
+Let Vgs − Vt = Vgt.  
+For small Vds, we neglect λ.</br>
+
+Another parameter is **Vdsat**, where velocity saturation begins.</br>
+
+![Vdsat](images/d13.png)
+![Derivation1](images/d14.png)
+![Derivation2](images/d15.png)
+![Derivation3](images/d16.png)
+![Final Eq](images/d17.png)
+
+Although equation suggests Id should increase when L decreases, practically it does not.</br>
+
+**Observation 2:**  
+Saturation current is lower in short channel devices because velocity saturation limits current.</br>
+
+![Final Observation](images/d18.png)
+
+---
+
+### L5 Labs Sky130 Id-Vgs
+
+![Setup1](images/d19.png)
+![Setup2](images/d20.png)
+
+Simulation parameters:
+- L = 0.15µm  
+- W = 0.39µm  
+
+![Result1](images/d21.png)
+![Result2](images/d22.png)
+![Result3](images/d23.png)
+
+For low Vgs → quadratic  
+For high Vgs → linear behavior</br>
+
+Peak current at Vgs = 1.8V ≈ **198µA**</br>
+
+![Cursor](images/d24.png)
+
+Now Id vs Vgs:</br>
+
+![Id vs Vgs](images/d25.png)
+
+Keeping Vds = 1.8V:</br>
+
+![Sweep1](images/d26.png)
+![Sweep2](images/d27.png)
+![Final Plot](images/d28.png)
+
+---
+
+### L6 Labs Sky130 Vt
+
+![Vt Graph](images/d29.png)
+
+Threshold voltage is where current sharply increases.</br>
+
+![Tangent](images/d30.png)
+
+Vt ≈ **0.76V**
+
+---
+
+## CMOS Voltage Transfer Characteristics (VTC)
+
+### L1 MOSFET as a Switch
+
+![Switch](images/d31.png)
+
+- |Vgs| < Vt → OFF (open switch)  
+- |Vgs| > Vt → ON (closed switch)  
+
+![Switch Model](images/d32.png)
+
+---
+
+### L2 Introduction to Standard MOS Parameters
+
+When Vin = Vdd:
+- PMOS OFF  
+- NMOS ON  
+
+![High Input](images/d33.png)
+
+When Vin = 0:
+- PMOS ON  
+- NMOS OFF  
+
+![Low Input](images/d34.png)
+
+Output capacitor behavior:</br>
+
+![Capacitor](images/d35.png)
+
+Naming convention:</br>
+
+![Naming](images/d36.png)
+
+Also:
+Ids_p = −Ids_n  
+
+---
+
+### L3 PMOS/NMOS Drain Current vs Voltage
+
+![PMOS Curve](images/d37.png)
+
+![Combined Curve](images/d38.png)
+
+---
+
+### L4 Step 1 – Convert PMOS Vgs to Vin
+
+![Table](images/d39.png)
+
+We know:
+Vgsp = Vin − Vdd  
+
+So:
+Vin = Vgsp + Vdd  
+
+![PMOS Plot](images/d40.png)
+
+---
+
+### L5 Step 2 & Step 3 – Convert Vds to Vout
+
+We know:
+Vdsp = Vout − Vdd  
+
+![Shift](images/d41.png)
+
+PMOS load curve:</br>
+
+![PMOS Load](images/d42.png)
+
+NMOS relation:
+Vgsn = Vin  
+Vdsn = Vout  
+
+![NMOS Eq](images/d43.png)
+![NMOS Graph1](images/d44.png)
+![NMOS Graph2](images/d45.png)
+
+---
+
+### L6 Step 4 – Merge Load Curves and Plot VTC
+
+![Merge](images/d46.png)
+
+![VTC](images/d47.png)
+
+Operating regions:
+
+- Vin = 0 → Vout = Vdd → NMOS OFF, PMOS Linear  
+- Vin = 0.5 → NMOS Saturation, PMOS Linear  
+- Vin = 1 → Both Saturation  
+- Vin = 1.5 → NMOS Linear, PMOS Saturation  
+- Vin = Vdd → Vout = 0 → NMOS Linear, PMOS OFF  
+
+![Final VTC](images/d48.png)
