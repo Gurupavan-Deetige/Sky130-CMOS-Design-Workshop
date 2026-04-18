@@ -1,78 +1,49 @@
-## Table of Contents
+## Workshop Flow 
 
-- [Day 1: NMOS Drain Current (Id) vs Drain-to-Source Voltage (Vds)](#day-1-nmos-drain-current-id-vs-drain-to-source-voltage-vds)
-  - [Introduction to Circuit Design and SPICE Simulations](#introduction-to-circuit-design-and-spice-simulations)
-    - [L1: Why do we need SPICE simulations?](#l1-why-do-we-need-spice-simulations)
-    - [L2: Introduction to NMOS as a basic circuit element](#l2-introduction-to-nmos-as-a-basic-circuit-element)
-    - [L3: Strong inversion and threshold voltage](#l3-strong-inversion-and-threshold-voltage)
-    - [L4: Effect of substrate bias on threshold voltage](#l4-effect-of-substrate-bias-on-threshold-voltage)
+This work follows a structured learning flow:
 
-  - [NMOS Regions of Operation: Linear and Saturation](#nmos-regions-of-operation-linear-and-saturation)
-    - [L1: Linear (Resistive) region behavior](#l1-linear-resistive-region-behavior)
-    - [L2: Drift current mechanism](#l2-drift-current-mechanism)
-    - [L3: Drain current equation in linear region](#l3-drain-current-equation-in-linear-region)
-    - [L4: SPICE-based observation of linear region](#l4-spice-based-observation-of-linear-region)
-    - [L5: Pinch-off condition](#l5-pinch-off-condition)
-    - [L6: Drain current in saturation region](#l6-drain-current-in-saturation-region)
+- Day 1: MOSFET basics and current behavior  
+- Day 2: Short channel effects and CMOS inverter VTC  
+- Day 3: Switching threshold and dynamic analysis  
+- Day 4: Noise margin and reliability  
+- Day 5: Power supply and device variation  
 
-  - [Introduction to SPICE Simulation](#introduction-to-spice-simulation)
-    - [L1: Basic SPICE setup](#l1-basic-spice-setup)
-    - [L2: SPICE netlist description](#l2-spice-netlist-description)
-    - [L3: Technology model parameters](#l3-technology-model-parameters)
-    - [L4: Running first SPICE simulation](#l4-running-first-spice-simulation)
-    - [L5: Simulation using Sky130 models](#l5-simulation-using-sky130-models)
+---
 
-- [Day 2: Velocity Saturation and CMOS Inverter VTC](#day-2-velocity-saturation-and-cmos-inverter-vtc)
-  - [SPICE Simulation and Short Channel Effects](#spice-simulation-and-short-channel-effects)
-    - [L1: Simulation for short channel devices](#l1-simulation-for-short-channel-devices)
-    - [L2: Id–Vgs characteristics comparison](#l2-id-vgs-characteristics-comparison)
-    - [L3: Velocity saturation concept](#l3-velocity-saturation-concept)
-    - [L4: Current model under velocity saturation](#l4-current-model-under-velocity-saturation)
-    - [L5: Lab simulation for Id-Vgs](#l5-lab-simulation-for-id-vgs)
-    - [L6: Threshold voltage extraction](#l6-threshold-voltage-extraction)
+## Why This is Fundamental for VLSI
 
-  - [CMOS Inverter Voltage Transfer Characteristics (VTC)](#cmos-inverter-voltage-transfer-characteristics-vtc)
-    - [L1: MOSFET as a switch](#l1-mosfet-as-a-switch)
-    - [L2: MOS voltage-current parameters](#l2-mos-voltage-current-parameters)
-    - [L3: NMOS and PMOS current characteristics](#l3-nmos-and-pmos-current-characteristics)
-    - [L4: Conversion of PMOS voltages](#l4-conversion-of-pmos-voltages)
-    - [L5: Output voltage representation](#l5-output-voltage-representation)
-    - [L6: Formation of VTC curve](#l6-formation-of-vtc-curve)
+In this workshop, we studied the basics of MOSFET operation and CMOS circuits step by step, starting from fundamental concepts to practical simulations.
 
-- [Day 3: CMOS Switching Threshold and Dynamic Analysis](#day-3-cmos-switching-threshold-and-dynamic-analysis)
-  - [SPICE Simulation of CMOS Inverter](#spice-simulation-of-cmos-inverter)
-    - [L1: SPICE deck creation](#l1-spice-deck-creation)
-    - [L2: Running simulation](#l2-running-simulation)
-    - [L3: Lab results and VTC analysis](#l3-lab-results-and-vtc-analysis)
+This is important for VLSI because:
 
-  - [Switching Threshold Analysis](#switching-threshold-analysis)
-    - [L1: Definition of switching threshold (Vm)](#l1-definition-of-switching-threshold-vm)
-    - [L2: Vm vs transistor sizing](#l2-vm-vs-transistor-sizing)
-    - [L3: Deriving W/L ratios from Vm](#l3-deriving-wl-ratios-from-vm)
-    - [L4: Static and dynamic behavior](#l4-static-and-dynamic-behavior)
-    - [L5: Effect of PMOS sizing](#l5-effect-of-pmos-sizing)
-    - [L6: Applications in timing analysis](#l6-applications-in-timing-analysis)
+### 1. MOSFET as a Basic Device
+We first understood how a MOSFET works as a switch and how current flows in different regions.  
+Since all VLSI circuits are built using MOSFETs, this is the core foundation.
 
-- [Day 4: CMOS Noise Margin Analysis](#day-4-cmos-noise-margin-analysis)
-  - [Noise Margin Fundamentals](#noise-margin-fundamentals)
-    - [L1: Introduction to noise margin](#l1-introduction-to-noise-margin)
-    - [L2: Voltage parameters (VOH, VOL, VIH, VIL)](#l2-voltage-parameters)
-    - [L3: Noise margin equations](#l3-noise-margin-equations)
-    - [L4: Effect of PMOS sizing on noise margin](#l4-effect-of-pmos-sizing-on-noise-margin)
-    - [L5: Lab simulation results](#l5-lab-simulation-results)
+### 2. CMOS as a Logic Implementation
+Using NMOS and PMOS together, we studied CMOS logic, which is widely used in digital design due to low power consumption.
 
-- [Day 5: Power Supply and Device Variation Analysis](#day-5-power-supply-and-device-variation-analysis)
-  - [Power Supply Scaling Effects](#power-supply-scaling-effects)
-    - [L1: SPICE simulation for Vdd variation](#l1-spice-simulation-for-vdd-variation)
-    - [L2: Advantages and disadvantages of low Vdd](#l2-advantages-and-disadvantages-of-low-vdd)
-    - [L3: Lab analysis](#l3-lab-analysis)
+### 3. Inverter as a Basic Gate
+The CMOS inverter is the simplest and most important gate.  
+All complex logic circuits are built using similar structures.
 
-  - [Device Variation Effects](#device-variation-effects)
-    - [L1: Process variation (etching)](#l1-process-variation)
-    - [L2: Oxide thickness variation](#l2-oxide-thickness-variation)
-    - [L3: SPICE simulation of variations](#l3-spice-simulation-of-variations)
-    - [L4: Observations and conclusion](#l4-observations-and-conclusion)
-    - [L5: Lab verification](#l5-lab-verification)
+### 4. Switching Behavior (VTC)
+From VTC analysis, we understood how input transitions affect output and how the switching threshold (Vm) is defined.
+
+### 5. Delay and Speed (Transient Analysis)
+We measured rise delay and fall delay, which determine how fast a circuit operates.
+
+### 6. Noise Margin (Reliability)
+We learned how much noise a circuit can tolerate without producing incorrect output.
+
+### 7. Power Supply Variation
+We observed how reducing VDD affects power, gain, and speed.
+
+### 8. Device Variation (Real-world Effects)
+We studied how fabrication variations like W/L changes and oxide thickness affect circuit performance.
+
+### 9. Interest Towards Analog VLSI
+While studying these concepts, especially device behavior and VTC characteristics, I developed an interest in analog VLSI, where continuous signal behavior and transistor-level understanding play a key role.
 
 # Day 1: Basics of NMOS Drain Current (Id) vs Drain-to-Source Voltage (Vds)
 
